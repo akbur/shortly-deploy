@@ -1,8 +1,24 @@
+//"wrapper function"
 module.exports = function(grunt) {
-
+  //Project configuration
+  //Configures all tasks
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
+    //appends static files into one large file
     concat: {
+      options: {
+        separator: ';'
+      }, 
+      dist: {
+        src: ['public/lib/**/*.js',
+              'public/client/**/*.js'],
+        //template useful so name change is easy
+        //name file same name as application - best practice
+        //so now files will be in a dist directory in public folder
+        //that file will be called shortly-express.js
+        //since these are client files - the app is basically shortly-express
+        dest: 'public/dist/<%= pkg.name %>.js'
+      }
     },
 
     mochaTest: {
@@ -19,8 +35,13 @@ module.exports = function(grunt) {
         script: 'server.js'
       }
     },
-
+    //transforms code into unreadable form to hide original intent
+    //uglifying our massive client file
     uglify: {
+      js: {
+        src: ['public/dist/<%= pkg.name %>.js'],
+        dest: 'public/dist/<%= pkg.name %>.js'
+      }
     },
 
     jshint: {
@@ -36,7 +57,7 @@ module.exports = function(grunt) {
         ]
       }
     },
-
+    //compresses css files
     cssmin: {
     },
 
@@ -63,6 +84,7 @@ module.exports = function(grunt) {
     },
   });
 
+  //Loads tasks
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -72,6 +94,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-shell');
   grunt.loadNpmTasks('grunt-nodemon');
 
+  //Custom task
   grunt.registerTask('server-dev', function (target) {
     // Running nodejs in a different process and displaying output on the main console
     var nodemon = grunt.util.spawn({
@@ -88,7 +111,15 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
+/*
 
+grunt.registerMultiTask('log', 'Log stuff.', function() {
+  grunt.log.writeln(this.target + ': ' + this.data);
+});
+
+
+
+*/
   grunt.registerTask('test', [
     'mochaTest'
   ]);
@@ -96,16 +127,20 @@ module.exports = function(grunt) {
   grunt.registerTask('build', [
   ]);
 
+  //grunt upload --prod --> would return true and production server tasks
   grunt.registerTask('upload', function(n) {
     if(grunt.option('prod')) {
       // add your production server task here
+      //when you're ready to push up to the production server
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
   });
 
+  //grunt deploy
   grunt.registerTask('deploy', [
     // add your deploy tasks here
+    //to build and host your app on a local dev server
   ]);
 
 
