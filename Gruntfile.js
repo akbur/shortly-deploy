@@ -46,11 +46,13 @@ module.exports = function(grunt) {
 
     jshint: {
       files: [
+        'app/**/*.js', 'lib/**/*.js', 'public/**/*.js', 'server.js'
         // Add filespec list here
       ],
       options: {
         force: 'true',
         jshintrc: '.jshintrc',
+        //ignoring libraries, and our uglified mess
         ignores: [
           'public/lib/**/*.js',
           'public/dist/**/*.js'
@@ -59,6 +61,9 @@ module.exports = function(grunt) {
     },
     //compresses css files
     cssmin: {
+      files: {
+        'public/output.css': ['public/*.css']
+      }
     },
 
     watch: {
@@ -80,6 +85,7 @@ module.exports = function(grunt) {
 
     shell: {
       prodServer: {
+        command: 'git push heroku master'
       }
     },
   });
@@ -125,6 +131,11 @@ grunt.registerMultiTask('log', 'Log stuff.', function() {
   ]);
 
   grunt.registerTask('build', [
+    //concat
+    //uglify
+    //cssmin
+    //test - exit if fail
+    //jshint - exit if fail
   ]);
 
   //grunt upload --prod --> would return true and production server tasks
