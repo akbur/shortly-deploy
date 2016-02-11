@@ -12,6 +12,7 @@ module.exports = function(grunt) {
       dist: {
         src: [
               'public/client/**/*.js'],
+              //'public/client/**/*.js'
         //template useful so name change is easy
         //name file same name as application - best practice
         //so now files will be in a dist directory in public folder
