@@ -152,11 +152,11 @@ module.exports = function(grunt) {
     //to build and host your app on a local dev server
   });
 
-  /*
-  grunt.registerTask('heroku', [
-    'build'
-  ]);
-*/
+  //needed for buildpack
+  grunt.registerTask('heroku', function(n){
+    grunt.task.run(['deploy']);
+  });
+
 
 
 };
