@@ -138,7 +138,7 @@ module.exports = function(grunt) {
     if(grunt.option('prod')) {
       // add your production server task here
       //when you're ready to push up to the production server
-      'shell'
+      grunt.task.run(['shell']);
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
