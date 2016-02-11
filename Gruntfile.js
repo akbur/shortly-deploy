@@ -61,8 +61,10 @@ module.exports = function(grunt) {
     },
     //compresses css files
     cssmin: {
-      files: {
-        'public/output.css': ['public/*.css']
+      target: {
+        files: {
+          'public/output.css': ['public/*.css']
+        }
       }
     },
 
@@ -117,25 +119,18 @@ module.exports = function(grunt) {
   ////////////////////////////////////////////////////
   // Main grunt tasks
   ////////////////////////////////////////////////////
-/*
-
-grunt.registerMultiTask('log', 'Log stuff.', function() {
-  grunt.log.writeln(this.target + ': ' + this.data);
-});
 
 
-
-*/
   grunt.registerTask('test', [
+    'jshint',
     'mochaTest'
   ]);
 
   grunt.registerTask('build', [
-    //concat
-    //uglify
-    //cssmin
-    //test - exit if fail
-    //jshint - exit if fail
+    'concat',
+    'uglify',
+    'cssmin',
+    'test'
   ]);
 
   //grunt upload --prod --> would return true and production server tasks
@@ -143,6 +138,7 @@ grunt.registerMultiTask('log', 'Log stuff.', function() {
     if(grunt.option('prod')) {
       // add your production server task here
       //when you're ready to push up to the production server
+      'shell'
     } else {
       grunt.task.run([ 'server-dev' ]);
     }
@@ -152,6 +148,7 @@ grunt.registerMultiTask('log', 'Log stuff.', function() {
   grunt.registerTask('deploy', [
     // add your deploy tasks here
     //to build and host your app on a local dev server
+    'build'
   ]);
 
 
