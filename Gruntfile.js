@@ -12,12 +12,12 @@ module.exports = function(grunt) {
       dist: {
         src: [
               'public/client/**/*.js'],
-              //'public/client/**/*.js'
         //template useful so name change is easy
         //name file same name as application - best practice
         //so now files will be in a dist directory in public folder
         //that file will be called shortly-express.js
         //since these are client files - the app is basically shortly-express
+        //able to do this because of line 6 above
         dest: 'public/dist/<%= pkg.name %>.js'
       }
     },
