@@ -12,7 +12,7 @@ var mongoose = require('mongoose');
 //connection is process.env uri  OR local url string
 
 var localUri = 'mongodb://127.0.0.1/shortlydb';
-var uri = process.env.MONGOLAB_URI || localUri;
+var uri = process.env.CUSTOMCONNSTR_MONGOLAB_URI || localUri;
 
 mongoose.connect(uri);
 var db = mongoose.connection;

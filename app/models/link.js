@@ -11,7 +11,7 @@ var linkSchema = mongoose.Schema({
   url: String,
 });
 
-var Link = mongoose.Model('Link', linkSchema);
+var Link = mongoose.model('Link', linkSchema);
 
 var createSha = function(url) {
   var shasum = crypto.createHash('sha1');
