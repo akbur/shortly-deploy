@@ -17,10 +17,8 @@ var userSchema = mongoose.Schema({
   }
 });
 
-var User = mongoose.model("User", userSchema);
-
-User.comparePassword = function(candidatePassword, savedPassword, callback) {
-    bcrypt.compare(candidatePassword, savedPassword, function(err, isMatch) {
+User.comparePassword = function (candidatePassword, savedPassword, callback) {
+    bcrypt.compare(candidatePassword, savedPassword, function (err, isMatch) {
       if (err) {
         return callback(err);
       }
@@ -28,13 +26,13 @@ User.comparePassword = function(candidatePassword, savedPassword, callback) {
     });
   };
 
-userSchema.pre('save', function(next) {
+userSchema.pre('save', function (next) {
     var cipher = Promise.promisify(bcrypt.hash);
     return cipher(this.password, null, null).bind(this)
-      .then(function(hash) {
+      .then(function (hash) {
         this.password = hash;
         next();
       });
 });
 
-module.exports = User;
+module.exports = mongoose.model("User", userSchema);

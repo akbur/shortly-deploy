@@ -13,13 +13,13 @@ var linkSchema = mongoose.Schema({
 
 var Link = mongoose.model('Link', linkSchema);
 
-var createSha = function(url) {
+var createSha = function (url) {
   var shasum = crypto.createHash('sha1');
   shasum.update(url);
   return shasum.digest('hex').slice(0, 5);
 };
 
-linkSchema.pre('save', function(next){
+linkSchema.pre('save', function (next) {
   var code = createSha(this.url);
   this.code = code;
   next();
